@@ -20,6 +20,4 @@ RUN dnf config-manager \
     useradd martijn -u 1026 -c 'Martijn Pepping' -G wheel && \
     ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 
-COPY sshd_config /etc/ssh/sshd_config
-
 CMD ["/usr/sbin/sshd", "-D"]
