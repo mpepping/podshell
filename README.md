@@ -1,3 +1,3 @@
 # shell
 
-A usable shell environment in a container.
+Simple shell env. /w docke-ce-client.
