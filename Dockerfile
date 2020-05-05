@@ -4,13 +4,15 @@ LABEL maintainer "Martijn Pepping <martijn.pepping@automiq.nl>"
 EXPOSE 22
 
 RUN dnf -y update && \
-    dnf -y install openssh-server \
-       passwd \
-       dnf-plugins-core \
+    dnf -y install dnf-plugins-core \
        git \
-       vim-enhanced \
-       sudo \
-       tmux && \
+       iproute \
+       mosh \
+       openssh-server \
+       passwd \
+       procps-ng \
+       tmux \
+       vim-enhanced && \
        dnf clean all
 
 RUN dnf config-manager \
