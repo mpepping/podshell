@@ -13,7 +13,7 @@ RUN dnf -y update && \
        procps-ng \
        tmux \
        vim-enhanced && \
-       dnf clean all
+    dnf clean all
 
 RUN dnf config-manager \
       --add-repo https://download.docker.com/linux/fedora/docker-ce.repo && \

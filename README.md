@@ -1,3 +1,3 @@
 # shell
 
-Simple shell env. /w docke-ce-client.
+Functional user-land shell /w docker-ce-cli, vim, curl ao.
