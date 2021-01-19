@@ -1,4 +1,4 @@
-FROM fedora:31
+FROM fedora:33
 LABEL maintainer "Martijn Pepping <martijn.pepping@automiq.nl>"
 
 EXPOSE 22
@@ -8,6 +8,7 @@ RUN dnf -y update && \
        git \
        iproute \
        mosh \
+       mutt \
        openssh-server \
        passwd \
        procps-ng \
