@@ -1,3 +1,3 @@
 # shell
 
-Simple shell env. /w docke-ce-client.
+Simple fedora based shell env. /w docker-ce-client.
