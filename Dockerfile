@@ -1,5 +1,5 @@
-FROM fedora:33
-LABEL maintainer "Martijn Pepping <martijn.pepping@automiq.nl>"
+FROM fedora:34
+LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>"
 
 EXPOSE 22
 
