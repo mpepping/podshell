@@ -18,5 +18,5 @@ RUN dnf -y update && \
     dnf clean all && \
     useradd -c "Pod User" -m -g users podshell
 
-USER podshell
+USER 1000
 WORKDIR /home/podshell
