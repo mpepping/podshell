@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.documentation="https://github.com/mpepping/podshe
 LABEL org.opencontainers.image.title="shell"
 
 RUN dnf -y update && \
-    dnf -y install \
+    dnf -y install --nodocs \
       curl \
       iproute \
       mosh \
