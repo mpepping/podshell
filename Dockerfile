@@ -1,26 +1,22 @@
-FROM fedora:34
-LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>"
+FROM fedora:37
 
-EXPOSE 22
+LABEL org.opencontainers.image.source="https://github.com/mpepping/podshell"
+LABEL org.opencontainers.image.authors="https://github.com/mpepping"
+LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
+LABEL org.opencontainers.image.documentation="https://github.com/mpepping/podshell"
+LABEL org.opencontainers.image.title="shell"
 
 RUN dnf -y update && \
-    dnf -y install dnf-plugins-core \
-       git \
-       iproute \
-       mosh \
-       mutt \
-       openssh-server \
-       passwd \
-       procps-ng \
-       tmux \
-       vim-enhanced && \
-       dnf clean all
-
-RUN dnf config-manager \
-      --add-repo https://download.docker.com/linux/fedora/docker-ce.repo && \
-    dnf install -y docker-ce-cli && \
+    dnf -y install \
+      curl \
+      iproute \
+      mosh \
+      skopeo \
+      tmux \
+      vim \
+      wget && \
     dnf clean all && \
-    useradd martijn -u 1026 -c 'Martijn Pepping' -G wheel && \
-    ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
+    useradd -c "Pod User" -m -g users podshell
 
-CMD ["/usr/sbin/sshd", "-D"]
+USER podshell
+WORKDIR /home/podshell
