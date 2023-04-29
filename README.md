@@ -1,6 +1,6 @@
 # shell
 
-Simple fedora based container env for dev and debug purposes.
+Simple alpine based container env for dev and debug purposes.
 
 ## Usage
 
