@@ -33,7 +33,7 @@ EOF
 As a Deployment:
 
 ```bash
-kubectl create deployment shell --image=ghcr.io/mpepping/podshell:latest -- sleep 86400
+kubectl create deployment shell --image=ghcr.io/mpepping/podshell:latest -- sleep infinit
 ```
 
 Or in docker or podman:
