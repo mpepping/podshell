@@ -1,4 +1,4 @@
-# shell
+# podshell
 
 Simple alpine based container env for dev and debug purposes.
 
