@@ -11,6 +11,7 @@ RUN apk add --no-cache \
       curl \
       iproute2 \
       mosh-client \
+      openssl \
       skopeo \
       tmux \
       vim \
