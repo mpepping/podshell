@@ -1,0 +1,27 @@
+#!/bin/bash
+
+URLBIN='https://github.com/devops-works/binenv/releases/latest/download/binenv_linux_amd64'
+URLCHK='https://github.com/devops-works/binenv/releases/latest/download/checksums.txt'
+
+wget -q $URLCHK
+wget -q $URLBIN
+
+sed -i '/binenv_linux_amd64/!d' checksums.txt
+sha256sum -c checksums.txt
+
+mv binenv_linux_amd64 binenv
+chmod +x binenv
+
+./binenv update
+./binenv install binenv
+
+rm binenv
+
+if [[ -n $BASH ]]; then ZESHELL=bash; fi
+if [[ -n $ZSH_NAME ]]; then ZESHELL=zsh; fi
+
+echo $ZESHELL
+echo -e '\nexport PATH=~/.binenv:$PATH' >> ~/.${ZESHELL}rc
+echo "source <(binenv completion ${ZESHELL})" >> ~/.${ZESHELL}rc
+
+# exec $SHELL
