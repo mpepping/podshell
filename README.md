@@ -41,3 +41,7 @@ Or in docker or podman:
 ```bash
 docker run -ti --rm ghcr.io/mpepping/podshell:latest || podman run -ti --rm ghcr.io/mpepping/podshell:latest
 ```
+
+## Binenv
+
+Install [binenv](https://github.com/devops-works/binenv) by running `/usr/local/bin/_add_binenv`. This will download and configure the `binenv` command. This allows you to install all sorts of tools in the running container.
