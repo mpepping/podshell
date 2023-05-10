@@ -21,7 +21,7 @@ RUN apk add --no-cache \
       wget \
       yq && \
     addgroup -g 1000 podshell && \
-    adduser -D -u 1000 -G podshell podshell
+    adduser -D -u 1000 -G podshell -s /bin/bash -g "Podshell User" podshell
 
 USER 1000
 WORKDIR /home/podshell
