@@ -10,6 +10,7 @@ ADD include/ /
 
 RUN apk add --no-cache \
       bash \
+      bash-completion \
       curl \
       iproute2 \
       jq \
