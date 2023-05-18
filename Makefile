@@ -17,7 +17,10 @@ clean: ## Remove the image
 	docker rmi $(APP_NAME):latest
 
 start: ## Start the container
-	docker run -it --rm $(APP_NAME):latest bash
+	docker run -it --rm $(APP_NAME):latest
 
 stop: ## Stop the container
 	docker rm -f $(APP_NAME)
+
+test: ## Test the container build
+	docker run -it --rm $(APP_NAME):latest "env | sort"

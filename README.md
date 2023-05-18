@@ -1,6 +1,8 @@
 # podshell
 
-Simple alpine based container env for dev and debug purposes.
+*Simple and small container env for development and debug purposes.*
+
+By default, the container starts as a regular user, to play nice with potential Kubernetes admission policies. Therefor, the a set of most [useful packages](./Dockerfile) is already installed, while keeping an eye on the container image size. The package list is not exhaustive, but can be extended by using the `binenv` tool. Run [binenv](https://github.com/devops-works/binenv) to install various packages, by running `binenv update`, `binenv search` and `binenv install <pkg>`.
 
 ## Usage
 
@@ -42,6 +44,6 @@ Or in docker or podman:
 docker run -ti --rm ghcr.io/mpepping/podshell:latest || podman run -ti --rm ghcr.io/mpepping/podshell:latest
 ```
 
-## Binenv
+## Feedback
 
-Install [binenv](https://github.com/devops-works/binenv) by running `/usr/local/bin/_add_binenv`. This will download and configure the `binenv` command. This allows you to install all sorts of tools in the running container.
+Open an [issue or PR](https://github.com/mpepping/podshell/issues).
