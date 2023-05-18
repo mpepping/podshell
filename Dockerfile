@@ -14,15 +14,17 @@ RUN apk add --no-cache \
       curl \
       iproute2 \
       jq \
-      mosh-client \
       openssl \
       skopeo \
       tmux \
       vim \
-      wget \
-      yq && \
+      wget && \
     addgroup -g 1000 podshell && \
-    adduser -D -u 1000 -G podshell -s /bin/bash -g "Podshell User" podshell
+    adduser -D -u 1000 -G podshell -s /bin/bash -g "Podshell User" podshell && \
+    su - podshell -c "/usr/local/bin/_add_binenv"
 
 USER 1000
 WORKDIR /home/podshell
+
+ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
+CMD [ "bash" ]
