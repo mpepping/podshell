@@ -41,7 +41,8 @@ kubectl create deployment shell --image=ghcr.io/mpepping/podshell:latest -- slee
 Or in docker or podman:
 
 ```bash
-docker run -ti --rm ghcr.io/mpepping/podshell:latest || podman run -ti --rm ghcr.io/mpepping/podshell:latest
+docker run -ti --rm ghcr.io/mpepping/podshell:latest ||\
+podman run -ti --rm ghcr.io/mpepping/podshell:latest
 ```
 
 ## Feedback

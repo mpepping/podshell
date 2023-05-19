@@ -14,8 +14,10 @@ RUN apk add --no-cache \
       curl \
       iproute2 \
       jq \
+      openssh-client \
       openssl \
       skopeo \
+      socat \
       tmux \
       vim \
       wget && \
