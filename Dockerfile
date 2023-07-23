@@ -1,10 +1,11 @@
 FROM alpine:3
 
-LABEL org.opencontainers.image.source="https://github.com/mpepping/podshell"
 LABEL org.opencontainers.image.authors="https://github.com/mpepping"
-LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
+LABEL org.opencontainers.image.description="PodShell is a container image for development and debug purposes"
 LABEL org.opencontainers.image.documentation="https://github.com/mpepping/podshell"
-LABEL org.opencontainers.image.title="shell"
+LABEL org.opencontainers.image.source="https://github.com/mpepping/podshell"
+LABEL org.opencontainers.image.title="podshell"
+LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
 
 ADD include/ /
 
