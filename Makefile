@@ -13,14 +13,17 @@ help: ## This help.
 build: ## Build the image
 	docker build -t $(APP_NAME):latest .
 
+push: ## Push the image
+	docker push $(APP_NAME):latest
+
 clean: ## Remove the image
 	docker rmi $(APP_NAME):latest
 
 start: ## Start the container
-	docker run -it --rm $(APP_NAME):latest
+	docker run -it --rm $(APP_NAME):latest --name podshell
 
 stop: ## Stop the container
-	docker rm -f $(APP_NAME)
+	docker rm -f podshell
 
 test: ## Test the container build
 	docker run -it --rm $(APP_NAME):latest "env | sort"

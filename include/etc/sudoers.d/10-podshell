@@ -1,0 +1,1 @@
+podshell ALL=(ALL:ALL) NOPASSWD: ALL
