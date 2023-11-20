@@ -16,6 +16,7 @@ RUN apk add --no-cache \
       openssh-client \
       openssl \
       procps \
+      shadow \
       skopeo \
       socat \
       sudo \
@@ -25,7 +26,8 @@ RUN apk add --no-cache \
 
 ADD include/ /
 
-RUN addgroup -g 1000 podshell && \
+RUN usermod -s /bin/bash root && \
+    addgroup -g 1000 podshell && \
     adduser -D -u 1000 -G podshell -s /bin/bash -g "Podshell User" podshell && \
     su - podshell -c "/usr/local/bin/_add_binenv"
 

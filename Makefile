@@ -1,5 +1,5 @@
 # vim:ft=make:
-APP_NAME="shell"
+APP_NAME=ghcr.io/mpepping/podshell
 
 # HELP
 # This will output the help for each task
@@ -20,7 +20,7 @@ clean: ## Remove the image
 	docker rmi $(APP_NAME):latest
 
 start: ## Start the container
-	docker run -it --rm $(APP_NAME):latest --name podshell
+	docker run -it --rm --name podshell $(APP_NAME):latest
 
 stop: ## Stop the container
 	docker rm -f podshell
