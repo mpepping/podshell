@@ -1,9 +1,6 @@
 # vim:ft=make:
 APP_NAME=ghcr.io/mpepping/podshell
 
-# HELP
-# This will output the help for each task
-# thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -26,4 +23,4 @@ stop: ## Stop the container
 	docker rm -f podshell
 
 test: ## Test the container build
-	docker run -it --rm $(APP_NAME):latest "env | sort"
+	docker run -it --rm $(APP_NAME):latest "cat /etc/os-release && id && env | sort"
