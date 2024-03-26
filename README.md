@@ -1,10 +1,10 @@
 # podshell
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/mpepping/podshell)
+
 *Simple and small container env for development and debug purposes.*
 
 By default, the container starts as a regular user, to play nice with potential Kubernetes admission policies. Therefor, the a set of most [useful packages](./Dockerfile) is already installed, while keeping an eye on the container image size. The package list is not exhaustive, but can be extended by using the `binenv` tool. Run [binenv](https://github.com/devops-works/binenv) to install various packages, by running `binenv update`, `binenv search` and `binenv install <pkg>`.
-
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/mpepping/podshell)
 
 ## Usage
 
