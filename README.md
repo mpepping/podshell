@@ -47,6 +47,23 @@ docker run -ti --rm ghcr.io/mpepping/podshell:latest ||\
 podman run -ti --rm ghcr.io/mpepping/podshell:latest
 ```
 
+## Building
+
+[![Container Image](https://github.com/mpepping/podshell/actions/workflows/ci.yml/badge.svg)](https://github.com/mpepping/podshell/actions/workflows/ci.yml)
+
+Run `make` or see the [`Makefile`](/Makefile).
+
+```shell
+❯ make
+help                           This help.
+build                          Build the image
+push                           Push the image
+clean                          Remove the image
+start                          Start the container
+stop                           Stop the container
+test                           Test the container build
+```
+
 ## Feedback
 
 Open an [issue or PR](https://github.com/mpepping/podshell/issues).
