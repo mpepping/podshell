@@ -10,6 +10,7 @@ LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
 RUN apk add --no-cache \
       bash \
       bash-completion \
+      bind-tools \
       curl \
       iproute2 \
       jq \
