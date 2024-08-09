@@ -8,13 +8,13 @@ By default, the container starts as a regular user, to play nice with potential 
 
 ## Usage
 
-Imperative and removed on exit:
+**Imperative** and removed on exit:
 
 ```bash
 kubectl run -it --rm --restart=Never --image=ghcr.io/mpepping/podshell:latest shell
 ```
 
-Declarative:
+**Declarative**:
 
 ```yaml
 kubectl apply -f - <<EOF
@@ -22,8 +22,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    run: shell
-  name: shell
+    name: podshell
+  name: podshell
 spec:
   containers:
   - image: ghcr.io/mpepping/podshell:latest
@@ -34,13 +34,46 @@ spec:
 EOF
 ```
 
-As a Deployment:
+As an imperative **Deployment**:
 
 ```bash
 kubectl create deployment shell --image=ghcr.io/mpepping/podshell:latest -- sleep infinit
 ```
 
-Or in docker or podman:
+As a **privileged daemonset** to add some host level super powers:
+
+```bash
+kubectl apply -f k8s/daemonset.yaml
+```
+
+This DaemonSet manifest will:
+
+ 1. Ensure a pod with our Docker image is running indefinitely on every node.
+ 2. Use `hostPID`, `hostIPC`, and `hostNetwork`.
+ 3. Mount the entire host filesystem to `/host` in the containers.
+
+In order to make use of these workloads, you can exec into a pod of choice by name:
+
+```bash
+kubectl -n kube-system get pods -l name=podshell -o name
+kubectl -n kube-system exec -it PODNAME bash
+```
+
+If you know the specific node name that you're interested in, you can exec into the debug pod on that node with:
+
+```bash
+NODE_NAME="talos-dev-worker-1"
+POD_NAME=$(kubectl -n kube-system get pods -l name=podshell --field-selector spec.nodeName=${NODE_NAME} -ojsonpath='{.items[0].metadata.name}')
+kubectl -n kube-system exec -it ${POD_NAME} bash
+```
+
+As a **privileged deployment**, instead of a daemonset example:
+
+```bash
+kubectl apply -f k8s/deployment.yaml
+```
+
+Or in **docker** or **podman**:
 
 ```bash
 docker run -ti --rm ghcr.io/mpepping/podshell:latest ||\

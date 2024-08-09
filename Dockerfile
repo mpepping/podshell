@@ -8,19 +8,25 @@ LABEL org.opencontainers.image.title="podshell"
 LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
 
 RUN apk add --no-cache \
+      atop \
       bash \
       bash-completion \
       bind-tools \
       curl \
+      htop \
       iproute2 \
       jq \
+      man-db \
+      man-pages \
       openssh-client \
       openssl \
       procps \
       shadow \
       skopeo \
       socat \
+      strace \
       sudo \
+      tcpdump \
       tmux \
       vim \
       wget
