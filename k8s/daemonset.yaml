@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: podshell
+  namespace: kube-system
+  labels:
+    app: podshell
+spec:
+  selector:
+    matchLabels:
+      name: podshell
+  template:
+    metadata:
+      labels:
+        name: podshell
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    spec:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostPID: true
+      hostIPC: true
+      hostNetwork: true
+      tolerations:
+      - operator: Exists
+      containers:
+      - name: podshell
+        securityContext:
+          privileged: true
+        image: ghcr.io/mpepping/podshell:latest
+        command: [ "sleep", "infinity" ]
+        resources:
+          requests:
+            memory: "0"
+            cpu: "0"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        volumeMounts:
+          - name: host
+            mountPath: /host
+      terminationGracePeriodSeconds: 0
+      volumes:
+        - name: host
+          hostPath:
+            path: /
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 100%
+    type: RollingUpdate
