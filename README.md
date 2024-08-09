@@ -2,19 +2,21 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/mpepping/podshell)
 
-*Simple and small container env for development and debug purposes.*
+*A simple and small container environment for development and debug purposes.*
 
-By default, the container starts as a regular user, to play nice with potential Kubernetes admission policies. Therefor, the a set of most [useful packages](./Dockerfile) is already installed, while keeping an eye on the container image size. The package list is not exhaustive, but can be extended by using the `binenv` tool. Run [binenv](https://github.com/devops-works/binenv) to install various packages, by running `binenv update`, `binenv search` and `binenv install <pkg>`.
+Podshell is a small set of userland tools you can shell into. The container starts as a regular user (uid `1000`), to play nice with potential Kubernetes admission policies. To make the shell useful, a set of most [useful packages](./Dockerfile) is already installed. The package list is not exhaustive, but can be extended by using the `binenv` tool. Run [binenv](https://github.com/devops-works/binenv) to install various packages, by running `binenv update`, `binenv search` and `binenv install <pkg>`.
+
+In a podshell, you can use `sudo` to switch to root if needed. That should be sufficient to run debugging or development tasks that may need root. Optionally, you can run the container as root, by setting `securityContext.runAsUser: 0` in a container spec.
 
 ## Usage
 
-**Imperative** and removed on exit:
+**Imperative** as a Pod in Kubernetes and removed on exit:
 
 ```bash
 kubectl run -it --rm --restart=Never --image=ghcr.io/mpepping/podshell:latest shell
 ```
 
-**Declarative**:
+**Declarative** as a Pod in Kubernetes:
 
 ```yaml
 kubectl apply -f - <<EOF
@@ -34,13 +36,24 @@ spec:
 EOF
 ```
 
-As an imperative **Deployment**:
+As an imperative **Deployment** one-liner in Kubernetes:
 
 ```bash
 kubectl create deployment shell --image=ghcr.io/mpepping/podshell:latest -- sleep infinit
 ```
 
-As a **privileged daemonset** to add some host level super powers:
+Or using **docker** or **podman** as container runtime:
+
+```bash
+docker run -ti --rm ghcr.io/mpepping/podshell:latest ||\
+podman run -ti --rm ghcr.io/mpepping/podshell:latest
+```
+
+## Run as a privileged Kubernetes daemonset or deployment
+
+You can use these [yaml examples](./k8s) to deploy the podshell as a privileged daemonset or deployment in Kubernetes.
+
+As a **privileged daemonset**:
 
 ```bash
 kubectl apply -f k8s/daemonset.yaml
@@ -71,13 +84,6 @@ As a **privileged deployment**, instead of a daemonset example:
 
 ```bash
 kubectl apply -f k8s/deployment.yaml
-```
-
-Or in **docker** or **podman**:
-
-```bash
-docker run -ti --rm ghcr.io/mpepping/podshell:latest ||\
-podman run -ti --rm ghcr.io/mpepping/podshell:latest
 ```
 
 ## Building
