@@ -23,4 +23,5 @@ stop: ## Stop the container
 	docker rm -f podshell
 
 test: ## Test the container build
-	docker run -it --rm $(APP_NAME):latest "cat /etc/os-release && id && env | sort"
+	docker run -it --rm $(APP_NAME):latest \
+		"env | sort && binenv version && dbin info"

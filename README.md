@@ -2,9 +2,12 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/mpepping/podshell)
 
-*A simple and small container environment for development and debug purposes.*
+_A simple and small container environment for development and debug purposes._
 
-Podshell is a small set of userland tools you can shell into. The container starts as a regular user (uid `1000`), to play nice with potential Kubernetes admission policies. To make the shell useful, a set of most [useful packages](./Dockerfile) is already installed. The package list is not exhaustive, but can be extended by using the `binenv` tool. Run [binenv](https://github.com/devops-works/binenv) to install various packages, by running `binenv update`, `binenv search` and `binenv install <pkg>`.
+Podshell is a small set of userland tools you can shell into. The container starts as a regular user (`podshell`, uid `1000`) to play nice with potential admission policies. A set of [useful packages](./Dockerfile) is already installed to provide a functional shell. The package list is not exhaustive, but can be extended at runtime via either [`binenv`](https://github.com/devops-works/binenv) or [`dbin`](https://github.com/xplshn/dbin):
+
+- Run [`binenv`](https://github.com/devops-works/binenv) to install various packages from their original GitHub release repositories, by running `binenv update`, `binenv search` and `binenv install <pkg>`.
+- Run [`dbin`](https://github.com/xplshn/dbin) to install various static binaries from the [Toolpacks](https://github.com/Azathothas/Toolpacks) repository, by running `dbin install`, `dbin search`, `dbin list` and `dbin run`.
 
 In a podshell, you can use `sudo` to switch to root if needed. That should be sufficient to run debugging or development tasks that may need root. Optionally, you can run the container as root, by setting `securityContext.runAsUser: 0` in a container spec.
 
@@ -61,9 +64,9 @@ kubectl apply -f k8s/daemonset.yaml
 
 This DaemonSet manifest will:
 
- 1. Ensure a pod with our Docker image is running indefinitely on every node.
- 2. Use `hostPID`, `hostIPC`, and `hostNetwork`.
- 3. Mount the entire host filesystem to `/host` in the containers.
+1.  Ensure a pod with our Docker image is running indefinitely on every node.
+2.  Use `hostPID`, `hostIPC`, and `hostNetwork`.
+3.  Mount the entire host filesystem to `/host` in the containers.
 
 In order to make use of these workloads, you can exec into a pod of choice by name:
 

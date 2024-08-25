@@ -17,11 +17,3 @@ chmod +x binenv
 
 rm binenv
 
-if [[ -n $BASH ]]; then ZESHELL=bash; fi
-if [[ -n $ZSH_NAME ]]; then ZESHELL=zsh; fi
-
-echo $ZESHELL
-echo -e '\nexport PATH=~/.binenv:$PATH' >> ~/.${ZESHELL}rc
-echo "source <(binenv completion ${ZESHELL})" >> ~/.${ZESHELL}rc
-
-# exec $SHELL
