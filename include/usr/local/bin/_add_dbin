@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# Copy of upstream install script, to avoid unintended changes
+# https://github.com/xplshn/dbin/blob/master/stubdl
+
+DEST="/tmp/._bdlstub_dbin.bin"
+
+# Determine architecture
+ARCH="$(uname -m)"
+case "$ARCH" in
+    x86_64) ARCH_SUFFIX="amd64" ;;
+    aarch64) ARCH_SUFFIX="arm64" ;;
+    *) echo "Unsupported architecture: $ARCH"; exit 1 ;;
+esac
+
+DBIN_URL="https://github.com/xplshn/dbin/releases/latest/download/dbin_${ARCH_SUFFIX}"
+
+# Handle --install option
+if [ "$1" = "--install" ]; then
+    DEST="$2"
+    shift 2
+fi
+
+# Function to download the binary
+download_dbin() {
+    if command -v wget >/dev/null 2>&1; then
+        wget -q "$DBIN_URL" -O "$DEST"
+    elif command -v curl >/dev/null 2>&1; then
+        curl -qfsSL "$DBIN_URL" -o "$DEST"
+    else
+        echo "Neither wget nor curl is available."
+        exit 1
+    fi
+}
+
+# Check if binary exists and is executable
+if [ -e "$DEST" ] && [ ! "$1" = "--install" ]; then
+    # Run the binary
+    "$DEST" "$@"
+else
+    # Download and install the binary
+    mkdir -p "$(dirname "$DEST")"
+    download_dbin
+
+    if [ "$1" = "--install" ]; then
+        chmod +x "$DEST"
+        echo "DBIN IS NOW AVAILABLE. ($DEST)"
+        exit 0
+    fi
+
+    # Make the binary executable and run it
+    chmod +x "$DEST"
+    "$DEST" "$@"
+
+    echo "done"
+fi
+
