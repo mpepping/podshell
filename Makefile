@@ -1,5 +1,6 @@
 # vim:ft=make:
-APP_NAME=ghcr.io/mpepping/podshell
+APP_NAME := ghcr.io/mpepping/podshell
+CONTAINER_NAME := podshell
 
 .PHONY: help
 help: ## This help.
@@ -16,11 +17,11 @@ push: ## Push the image
 clean: ## Remove the image
 	docker rmi $(APP_NAME):latest
 
-start: ## Start the container
-	docker run -it --rm --name podshell $(APP_NAME):latest
+run start: ## Start the container
+	docker run -it --rm --name $(CONTAINER_NAME) $(APP_NAME):latest
 
 stop: ## Stop the container
-	docker rm -f podshell
+	docker rm -f $(CONTAINER_NAME)
 
 test: ## Test the container build
 	docker run -it --rm $(APP_NAME):latest \
