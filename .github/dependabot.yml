@@ -2,6 +2,12 @@
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 version: 2
 updates:
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "06:15"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
