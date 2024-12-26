@@ -29,6 +29,7 @@ RUN apk add --no-cache \
       tcpdump \
       tmux \
       vim \
+      virt-what \
       wget
 
 ADD include/ /
