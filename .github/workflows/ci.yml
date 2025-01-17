@@ -24,7 +24,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-amd:
+  build:
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
