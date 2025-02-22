@@ -37,7 +37,7 @@ jobs:
 
       - name: Install cosign (for signing images)
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@v3.8.0
+        uses: sigstore/cosign-installer@v3.8.1
         with:
           cosign-release: "v2.2.3"
 
