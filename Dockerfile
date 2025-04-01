@@ -11,16 +11,24 @@ RUN apk add --no-cache \
       atop \
       bash \
       bash-completion \
+      bat \
       bind-tools \
       curl \
       htop \
+      iftop \
+      iperf3 \
       iproute2 \
       jq \
+      lsblk \
+      lsof \
       man-db \
       man-pages \
+      mtr \
+      nmap \
       openssh-client \
       openssl \
       procps \
+      ripgrep \
       shadow \
       skopeo \
       socat \
