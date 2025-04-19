@@ -8,47 +8,14 @@ LABEL org.opencontainers.image.title="podshell"
 LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
 
 RUN dnf install --setopt=install_weak_deps=False --nodocs -y \
-      atop \
-      bash \
-      bash-completion \
-      bat \
-      curl \
-      dnsutils \
-      htop \
-      iftop \
-      iperf3 \
-      jq \
-      lsof \
-      man-db \
-      man-pages \
-      mtr \
-      nmap \
-      openssh \
-      openssl \
-      procps \
-      ripgrep \
-      shadow \
-      skopeo \
-      socat \
-      strace \
-      sudo \
-      tcpdump \
-      tmux \
-      vim \
-      virt-what \
-      wget && \
+      bash bash-completion curl htop jq lsof procps ripgrep shadow sudo tmux wget && \
     dnf clean all && \
-    rm -rf /var/cache/dnf
-
-RUN rm -rf /usr/share/doc /usr/share/man /usr/share/locale
+    rm -rf /var/cache/dnf /usr/share/doc /usr/share/man /usr/share/locale
 
 ADD include/ /
 
-RUN usermod -s /bin/bash root && \
-    groupadd -g 1000 podshell && \
-    useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell && \
-    su - podshell -c "/usr/local/bin/_add_binenv" && \
-    su - podshell -c "/usr/local/bin/_add_dbin --install /home/podshell/.local/bin/dbin"
+RUN groupadd -g 1000 podshell && \
+    useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell
 
 USER 1000
 WORKDIR /home/podshell
