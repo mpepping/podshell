@@ -1,4 +1,4 @@
-FROM alpine:3.21
+FROM fedora:40
 
 LABEL org.opencontainers.image.authors="https://github.com/mpepping"
 LABEL org.opencontainers.image.description="PodShell is a container image for development and debug purposes"
@@ -7,46 +7,15 @@ LABEL org.opencontainers.image.source="https://github.com/mpepping/podshell"
 LABEL org.opencontainers.image.title="podshell"
 LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
 
-RUN apk add --no-cache \
-      atop \
-      bash \
-      bash-completion \
-      bat \
-      bind-tools \
-      curl \
-      htop \
-      iftop \
-      iperf3 \
-      iproute2 \
-      jq \
-      lsblk \
-      lsof \
-      man-db \
-      man-pages \
-      mtr \
-      nmap \
-      openssh-client \
-      openssl \
-      procps \
-      ripgrep \
-      shadow \
-      skopeo \
-      socat \
-      strace \
-      sudo \
-      tcpdump \
-      tmux \
-      vim \
-      virt-what \
-      wget
+RUN dnf install --setopt=install_weak_deps=False --nodocs -y \
+      bash bash-completion curl htop jq lsof procps ripgrep shadow sudo tmux wget && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf /usr/share/doc /usr/share/man /usr/share/locale
 
 ADD include/ /
 
-RUN usermod -s /bin/bash root && \
-    addgroup -g 1000 podshell && \
-    adduser -D -u 1000 -G podshell -s /bin/bash -g "Podshell User" podshell && \
-    su - podshell -c "/usr/local/bin/_add_binenv" && \
-    su - podshell -c "/usr/local/bin/_add_dbin --install /home/podshell/.local/bin/dbin"
+RUN groupadd -g 1000 podshell && \
+    useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell
 
 USER 1000
 WORKDIR /home/podshell
