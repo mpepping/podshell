@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.description="PodShell is a container image for de
 LABEL org.opencontainers.image.documentation="https://github.com/mpepping/podshell"
 LABEL org.opencontainers.image.source="https://github.com/mpepping/podshell"
 LABEL org.opencontainers.image.title="podshell"
-LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
+LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell:latest"
 
 RUN apk add --no-cache \
       atop \
