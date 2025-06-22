@@ -1,4 +1,4 @@
-FROM fedora:40
+FROM fedora:42
 
 LABEL org.opencontainers.image.authors="https://github.com/mpepping"
 LABEL org.opencontainers.image.description="PodShell is a container image for development and debug purposes"
@@ -8,14 +8,30 @@ LABEL org.opencontainers.image.title="podshell"
 LABEL org.opencontainers.image.url="ghcr.io/mpepping/podshell/shell:latest"
 
 RUN dnf install --setopt=install_weak_deps=False --nodocs -y \
-      bash bash-completion curl htop jq lsof procps ripgrep shadow sudo tmux wget && \
+      bash \
+      bash-completion \
+      curl \
+      htop \
+      jq \
+      lsof \
+      procps \
+      ripgrep \
+      shadow \
+      sudo \
+      tmux \
+      vim-enhanced \
+      wget && \
     dnf clean all && \
     rm -rf /var/cache/dnf /usr/share/doc /usr/share/man /usr/share/locale
 
 ADD include/ /
 
+WORKDIR /home/podshell
+
 RUN groupadd -g 1000 podshell && \
-    useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell
+    useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell && \
+    sudo -u podshell /usr/local/bin/_add_binenv && \
+    sudo -u podshell /usr/local/bin/_add_dbin --install /home/podshell/.local/bin/dbin
 
 USER 1000
 WORKDIR /home/podshell

@@ -1,5 +1,14 @@
 # vim:ft=make:
 APP_NAME=ghcr.io/mpepping/podshell
+OS_NAME := $(shell uname -s | tr A-Z a-z)
+
+# Auto-detect container runtime
+CONTAINER_RUNTIME := $(shell which container 2>/dev/null || which docker 2>/dev/null || which podman 2>/dev/null || echo "")
+
+ifeq ($(CONTAINER_RUNTIME),)
+$(error No docker, podman or container found in PATH)
+endif
+
 
 .PHONY: help
 help: ## This help.
@@ -8,20 +17,38 @@ help: ## This help.
 .DEFAULT_GOAL := help
 
 build: ## Build the image
-	docker build -t $(APP_NAME):latest .
+	$(CONTAINER_RUNTIME) build -t $(APP_NAME):latest .
 
 push: ## Push the image
-	docker push $(APP_NAME):latest
+ifneq ($(findstring container,$(CONTAINER_RUNTIME)),)
+	$(CONTAINER_RUNTIME) image push $(APP_NAME):latest
+else
+	$(CONTAINER_RUNTIME) push $(APP_NAME):latest
+endif
+
+pull: ## Pull the image
+ifneq ($(findstring container,$(CONTAINER_RUNTIME)),)
+	$(CONTAINER_RUNTIME) image pull $(APP_NAME):latest
+else
+	$(CONTAINER_RUNTIME) pull $(APP_NAME):latest
+endif
 
 clean: ## Remove the image
-	docker rmi $(APP_NAME):latest
+ifneq ($(findstring container,$(CONTAINER_RUNTIME)),)
+	$(CONTAINER_RUNTIME) image rm $(APP_NAME):latest
+else
+	$(CONTAINER_RUNTIME) rmi $(APP_NAME):latest
+endif
 
 start: ## Start the container
-	docker run -it --rm --name podshell $(APP_NAME):latest
+	$(CONTAINER_RUNTIME) run -it --rm --name podshell $(APP_NAME):latest
 
 stop: ## Stop the container
-	docker rm -f podshell
+	$(CONTAINER_RUNTIME) rm -f podshell
 
 test: ## Test the container build
-	docker run -it --rm $(APP_NAME):latest \
+	$(CONTAINER_RUNTIME) run -it --rm $(APP_NAME):latest \
 		"env | sort && binenv version && dbin info"
+
+runtime: ## Show detected container runtime and OS
+	@echo "Using container runtime: $(CONTAINER_RUNTIME) on $(OS_NAME)"
