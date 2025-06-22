@@ -26,13 +26,13 @@ RUN dnf install --setopt=install_weak_deps=False --nodocs -y \
 
 ADD include/ /
 
+RUN groupadd -g 1000 podshell && \
+useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell
+
 WORKDIR /home/podshell
 
-RUN groupadd -g 1000 podshell && \
-    useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell
-
-RUN sudo -u podshell /usr/local/bin/_add_binenv && \
-    sudo -u podshell /usr/local/bin/_add_dbin --install /home/podshell/.local/bin/dbin
+RUN sudo -u podshell /usr/local/bin/_add_binenv
+RUN sudo -u podshell /usr/local/bin/_add_dbin --install /home/podshell/.local/bin/dbin
 
 USER 1000
 WORKDIR /home/podshell
