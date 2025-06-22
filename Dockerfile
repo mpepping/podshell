@@ -29,8 +29,9 @@ ADD include/ /
 WORKDIR /home/podshell
 
 RUN groupadd -g 1000 podshell && \
-    useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell && \
-    sudo -u podshell /usr/local/bin/_add_binenv && \
+    useradd -u 1000 -m -g podshell -s /bin/bash -c "Podshell User" podshell
+
+RUN sudo -u podshell /usr/local/bin/_add_binenv && \
     sudo -u podshell /usr/local/bin/_add_dbin --install /home/podshell/.local/bin/dbin
 
 USER 1000
