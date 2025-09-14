@@ -1,0 +1,17 @@
+name: Registry cleanup
+on:
+  workflow_dispatch:
+
+jobs:
+  house-keeping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove untagged container images
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'podshell'
+          package-type: 'container'
+          delete-only-untagged-versions: 'true'
+          delete-only-pre-release-versions: 'true'
+          min-versions-to-keep: 10
+          token: ${{ secrets.NUKE_TOKEN }}
