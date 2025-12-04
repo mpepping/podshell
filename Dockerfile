@@ -1,4 +1,4 @@
-FROM alpine:3.22
+FROM alpine:3.23
 
 LABEL org.opencontainers.image.authors="https://github.com/mpepping"
 LABEL org.opencontainers.image.description="PodShell is a container image for development and debug purposes"
