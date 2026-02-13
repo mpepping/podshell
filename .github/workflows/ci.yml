@@ -70,7 +70,7 @@ jobs:
 
       - name: Build and push multi-platform Docker image
         id: build-and-push
-        uses: docker/build-push-action@v6.19.1
+        uses: docker/build-push-action@v6.19.2
         with:
           context: .
           platforms: linux/amd64,linux/arm64
