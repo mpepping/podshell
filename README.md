@@ -19,6 +19,25 @@ In a podshell, you can use `sudo` to switch to root if needed. That should be su
 kubectl run -it --rm --restart=Never --image=ghcr.io/mpepping/podshell:latest shell
 ```
 
+Or start it in the background and exec into it later:
+
+```bash
+kubectl run shell --image=ghcr.io/mpepping/podshell:latest -- sleep 86400
+kubectl exec -it shell -- bash
+```
+
+**Debugging an existing pod** using an ephemeral container:
+
+```bash
+kubectl debug -it <pod-name> --image=ghcr.io/mpepping/podshell:latest
+```
+
+**Debugging a node** using an ephemeral container:
+
+```bash
+kubectl debug node/<node-name> -it --image=ghcr.io/mpepping/podshell:latest
+```
+
 **Declarative** as a Pod in Kubernetes:
 
 ```yaml
