@@ -10,11 +10,12 @@ $(error No docker, podman or container found in PATH)
 endif
 
 
-.PHONY: help
 help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .DEFAULT_GOAL := help
+
+.PHONY: help build push pull clean start stop test runtime
 
 build: ## Build the image
 	$(CONTAINER_RUNTIME) build -t $(APP_NAME):latest .
