@@ -2,6 +2,9 @@ name: Registry cleanup
 on:
   workflow_dispatch:
 
+# NOTE: the build publishes SBOM and provenance attestations, which show up as
+# untagged manifests in GHCR. They are referenced by the image index, so only
+# run this cleanup deliberately and keep enough versions around.
 jobs:
   house-keeping:
     runs-on: ubuntu-latest

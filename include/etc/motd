@@ -1,0 +1,14 @@
+
+                _    _        _ _
+  _ __  ___  __| |__| |_  ___| | |
+ | '_ \/ _ \/ _` (_-< ' \/ -_) | |
+ | .__/\___/\__,_/__/_||_\___|_|_|
+ |_|   Welcome to podshell -- github.com/mpepping/podshell
+
+ A shell for debug and development purposes. You are `podshell` (uid 1000),
+ use `sudo` when you need root.
+
+ Extend at runtime:  binenv update && binenv search <pkg> && binenv install <pkg>
+                     dbin search <pkg> && dbin install <pkg>
+ Hide this banner:   touch ~/.hushlogin
+

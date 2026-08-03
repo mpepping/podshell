@@ -1,0 +1,31 @@
+---
+# A plain, unprivileged podshell pod. Handy when your cluster enforces the
+# "restricted" Pod Security Standard. Exec into it with:
+#   kubectl exec -it podshell -- bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podshell
+  labels:
+    app: podshell
+spec:
+  containers:
+    - name: podshell
+      image: ghcr.io/mpepping/podshell:latest
+      imagePullPolicy: Always
+      command: ["sleep", "infinity"]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+        seccompProfile:
+          type: RuntimeDefault
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "10m"
+        limits:
+          memory: "512Mi"
+  terminationGracePeriodSeconds: 0

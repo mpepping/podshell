@@ -1,0 +1,10 @@
+#!/bin/sh
+# Print the podshell banner once per shell session.
+# Suppressed when ~/.hushlogin exists or PODSHELL_NO_MOTD is set.
+
+[ -n "${PODSHELL_MOTD_SHOWN:-}" ] && exit 0
+[ -n "${PODSHELL_NO_MOTD:-}" ] && exit 0
+[ -f "${HOME:-/}/.hushlogin" ] && exit 0
+[ -r /etc/motd ] || exit 0
+
+cat /etc/motd

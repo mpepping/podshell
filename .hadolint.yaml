@@ -1,0 +1,5 @@
+---
+ignored:
+  # Pinning apk package versions is not practical here: the image tracks the
+  # current Alpine release and is rebuilt regularly.
+  - DL3018

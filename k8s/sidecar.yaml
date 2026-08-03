@@ -1,0 +1,41 @@
+---
+# Run podshell as a sidecar next to an application container. Both containers
+# share the same network namespace, so podshell sees exactly the traffic,
+# interfaces and localhost ports of the application:
+#   kubectl exec -it deploy/nginx-podshell -c podshell -- bash
+#   > curl -sv http://localhost/
+#   > sudo tcpdump -nni any port 80
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-podshell
+  labels:
+    app: nginx-podshell
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-podshell
+  template:
+    metadata:
+      labels:
+        app: nginx-podshell
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+        - name: podshell
+          image: ghcr.io/mpepping/podshell:latest
+          command: ["sleep", "infinity"]
+          securityContext:
+            # NET_RAW+NET_ADMIN are only needed for tcpdump/nmap-style tooling
+            capabilities:
+              add: ["NET_RAW", "NET_ADMIN"]
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "10m"
+            limits:
+              memory: "512Mi"
