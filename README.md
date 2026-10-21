@@ -68,12 +68,12 @@ kubectl create deployment shell --image=ghcr.io/mpepping/podshell:latest -- slee
 
 Ready-to-use manifests live in [`k8s/`](./k8s):
 
-| Manifest | Description |
-|---|---|
-| [`k8s/pod.yaml`](./k8s/pod.yaml) | Plain unprivileged pod, passes the `restricted` Pod Security Standard |
-| [`k8s/sidecar.yaml`](./k8s/sidecar.yaml) | Podshell as a sidecar sharing an application pod |
-| [`k8s/daemonset.yaml`](./k8s/daemonset.yaml) | Privileged daemonset on every node, host filesystem at `/host` |
-| [`k8s/deployment.yaml`](./k8s/deployment.yaml) | Privileged deployment, host filesystem at `/host` |
+| Manifest                                       | Description                                                           |
+| ---------------------------------------------- | --------------------------------------------------------------------- |
+| [`k8s/pod.yaml`](./k8s/pod.yaml)               | Plain unprivileged pod, passes the `restricted` Pod Security Standard |
+| [`k8s/sidecar.yaml`](./k8s/sidecar.yaml)       | Podshell as a sidecar sharing an application pod                      |
+| [`k8s/daemonset.yaml`](./k8s/daemonset.yaml)   | Privileged daemonset on every node, host filesystem at `/host`        |
+| [`k8s/deployment.yaml`](./k8s/deployment.yaml) | Privileged deployment, host filesystem at `/host`                     |
 
 ```bash
 kubectl apply -f k8s/pod.yaml
@@ -275,16 +275,16 @@ sudo skopeo inspect docker://ghcr.io/mpepping/podshell:latest  # registry/image 
 
 ## Included tooling
 
-| Area | Tools |
-|---|---|
-| Shell and editing | `bash`, `bash-completion`, `vim`, `tmux`, `less`, `bat`, `ripgrep`, `tree`, `file`, `git`, `man` |
-| DNS | `bind-tools` (`dig`, `host`, `nslookup`), `drill` |
-| Network analysis | `tcpdump`, `ngrep`, `iftop`, `nmap`, `socat`, `netcat-openbsd`, `websocat` |
-| Connectivity | `iputils` (`ping`, `arping`, `tracepath`), `fping`, `mtr`, `traceroute`, `tcptraceroute`, `curl`, `wget` |
-| Performance | `iperf3`, `apache2-utils` (`ab`), `htop`, `atop`, `procps` |
+| Area                    | Tools                                                                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Shell and editing       | `bash`, `bash-completion`, `vim`, `tmux`, `less`, `bat`, `ripgrep`, `tree`, `file`, `git`, `man`                        |
+| DNS                     | `bind-tools` (`dig`, `host`, `nslookup`), `drill`                                                                       |
+| Network analysis        | `tcpdump`, `ngrep`, `iftop`, `nmap`, `socat`, `netcat-openbsd`, `websocat`                                              |
+| Connectivity            | `iputils` (`ping`, `arping`, `tracepath`), `fping`, `mtr`, `traceroute`, `tcptraceroute`, `curl`, `wget`                |
+| Performance             | `iperf3`, `apache2-utils` (`ab`), `htop`, `atop`, `procps`                                                              |
 | Routing and firewalling | `iproute2` (`ip`, `ss`, `tc`), `bridge-utils`, `ethtool`, `iptables`, `nftables`, `ipset`, `ipvsadm`, `conntrack-tools` |
-| Security and TLS | `openssl`, `openssh-client` |
-| System and containers | `strace`, `lsof`, `lsblk`, `shadow`, `sudo`, `virt-what`, `skopeo`, `jq` |
+| Security and TLS        | `openssl`, `openssh-client`                                                                                             |
+| System and containers   | `strace`, `lsof`, `lsblk`, `shadow`, `sudo`, `virt-what`, `skopeo`, `jq`                                                |
 
 The full list lives in the [`Dockerfile`](./Dockerfile). Images are built for `linux/amd64` and
 `linux/arm64`, and signed with [cosign](https://github.com/sigstore/cosign):
